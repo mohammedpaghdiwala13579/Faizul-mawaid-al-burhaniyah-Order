@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Tiffin Terms & Conditions: Transparency and trust in every meal delivery. Discover our commitment to quality service." />
+  <title>Tiffin — Terms & Conditions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍲</text></svg>">
+  <style>
+  :root {
+    --gold: #d4af37;
+    --accent: #e8c547;
+    --ivory: #fffaf2;
+    --champagne: #f7e7ce;
+    --text: #3e3b36;
+    --muted: #847c70;
+    --bg-body: linear-gradient(135deg, var(--ivory) 0%, var(--champagne) 50%, #f0e6d2 100%);
+    --bg-section: rgba(255, 255, 255, 0.92);
+    --bg-aside: rgba(255, 255, 255, 0.9);
+    --bg-header: rgba(255, 255, 255, 0.15);
+    --border-light: rgba(255, 255, 255, 0.25);
+    --hero-overlay: linear-gradient(135deg, rgba(255, 250, 242, 0.85) 0%, rgba(247, 231, 206, 0.7) 100%);
+    --shadow: 0 10px 40px rgba(0,0,0,0.08);
+    --shadow-lg: 0 25px 70px rgba(0,0,0,0.12);
+    --radius: 20px;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  [data-theme="dark"] {
+    --gold: #f4d03f;
+    --accent: #f7dc6f;
+    --text: #f8f8f8;
+    --muted: #c0c0c0;
+    --bg-body: linear-gradient(135deg, #2e2e2e 0%, #3a3a3a 50%, #4a4a4a 100%);
+    --bg-section: rgba(50, 50, 50, 0.92);
+    --bg-aside: rgba(60, 60, 60, 0.9);
+    --bg-header: rgba(0, 0, 0, 0.3);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --hero-overlay: linear-gradient(135deg, rgba(46, 46, 46, 0.85) 0%, rgba(58, 58, 58, 0.7) 100%);
+    --shadow: 0 10px 40px rgba(0,0,0,0.3);
+    --shadow-lg: 0 25px 70px rgba(0,0,0,0.4);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--bg-body);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.7;
+    transition: var(--transition);
+  }
+
+  /* Loading Screen with Creative Spin */
+  #loader {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--bg-body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+    color: var(--text);
+  }
+
+  #loader.hidden { opacity: 0; pointer-events: none; }
+  .loader-content {
+    text-align: center;
+    animation: fadeInPulse 1.5s ease-in-out;
+  }
+  .loader-icon {
+    font-size: 4rem;
+    animation: wobble 2s ease-in-out infinite;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  @keyframes wobble {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(5deg) scale(1.05); }
+    75% { transform: rotate(-5deg) scale(1.05); }
+  }
+  @keyframes fadeInPulse {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  /* Enchanted Stars with Trail Effect */
+  #stars-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    bottom: -10px;
+    border-radius: 50%;
+    opacity: 0;
+    animation: rise linear infinite;
+    filter: drop-shadow(0 0 4px var(--gold));
+    z-index: 1;
+  }
+
+  .star::before,
+  .star::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    background: inherit;
+    border-radius: inherit;
+    transform: translate(-50%, -50%);
+  }
+
+  .star::before { 
+    width: 50%; height: 50%; 
+    animation: twinkle 1.2s ease-in-out infinite alternate; 
+  }
+  .star::after { 
+    width: 25%; height: 25%; 
+    animation: twinkle 1.2s ease-in-out infinite alternate 0.6s; 
+  }
+
+  /* Creative Trail */
+  .star-trail {
+    position: absolute;
+    bottom: -10px;
+    width: 1px;
+    height: 100vh;
+    background: linear-gradient(to top, transparent, var(--gold));
+    opacity: 0.3;
+    animation: riseTrail linear infinite;
+    left: var(--left-pos);
+  }
+
+  @keyframes rise {
+    0% { opacity: 0; transform: translateY(0) scale(0.3) rotate(0deg); }
+    10% { opacity: 1; transform: translateY(-5vh) scale(1) rotate(180deg); }
+    90% { opacity: 1; transform: translateY(-95vh) scale(1) rotate(180deg); }
+    100% { opacity: 0; transform: translateY(-100vh) scale(0.3) rotate(360deg); }
+  }
+
+  @keyframes riseTrail {
+    to { transform: translateY(-100vh); }
+  }
+
+  @keyframes twinkle {
+    0% { transform: translate(-50%, -50%) scale(0.7) opacity: 0.5; }
+    100% { transform: translate(-50%, -50%) scale(1.8) opacity: 1; }
+  }
+
+  [data-theme="dark"] .star {
+    filter: drop-shadow(0 0 6px var(--gold));
+  }
+
+  [data-theme="dark"] .star::before,
+  [data-theme="dark"] .star::after {
+    background: #fff;
+  }
+
+  /* Floating Particles for Creativity */
+  #particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: floatParticle linear infinite;
+  }
+
+  @keyframes floatParticle {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    90% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-10vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* Progress Bar with Glow */
+  #progress {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0%; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+    z-index: 1001;
+    box-shadow: 0 0 15px var(--gold);
+    transition: width 0.2s ease;
+  }
+
+  /* Header with Enhanced Glassmorphism */
+  header.sticky {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    backdrop-filter: blur(30px) saturate(200%) brightness(1.1);
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    transition: var(--transition);
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  nav .brand {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+    transition: var(--transition);
+  }
+
+  nav .brand:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px var(--gold));
+  }
+
+  nav .brand::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem; left: 0;
+    width: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+    transition: width 0.3s ease;
+  }
+
+  nav .brand:hover::after { width: 100%; }
+
+  nav .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: var(--transition);
+    opacity: 0.9;
+  }
+
+  nav a:hover {
+    opacity: 1;
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  nav a::before {
+    content: '';
+    position: absolute;
+    bottom: -0.25rem; left: 0;
+    width: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+    transition: width 0.3s ease;
+  }
+
+  nav a:hover::before { width: 100%; }
+
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--muted);
+    color: var(--text);
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    opacity: 0.8;
+  }
+
+  .theme-toggle:hover { 
+    background: linear-gradient(135deg, var(--gold), var(--accent));
+    color: var(--bg-body);
+    border-color: var(--gold);
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+
+  /* Hero with Immersive Parallax - NEW IMAGE AP	iplied */
+  .hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: 
+      radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.25) 0%, transparent 50%),
+      url('https://i.postimg.cc/Kvm2YGZx/faiz.webp') center/cover no-repeat;
+    background-attachment: fixed;
+    transform-style: preserve-3d;
+    transition: var(--transition);
+  }
+
+  [data-theme="dark"] .hero {
+    filter: brightness(0.9) contrast(1.1);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--hero-overlay);
+    transition: var(--transition);
+  }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 0 2rem;
+    animation: slideInUp 1s ease-out;
+  }
+
+  @keyframes slideInUp {
+    from { opacity: 0; transform: translateY(50px) rotateX(10deg); }
+    to { opacity: 1; transform: translateY(0) rotateX(0); }
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  .hero h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    border-radius: 2px;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .hero p {
+    font-size: 1.3rem;
+    color: var(--text);
+    margin: 0;
+    opacity: 0.95;
+    font-weight: 300;
+    position: relative;
+    z-index: 3;
+  }
+
+  /* Main Content with Morphing Cards */
+  .container {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .main-content { width: 100%; }
+
+  .section {
+    background: var(--bg-section);
+    backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 3rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(60px) rotateX(5deg);
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
+  }
+
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+    transition: var(--transition);
+  }
+
+  .section:hover::before {
+    box-shadow: 0 0 10px var(--gold);
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+    animation: slideInUp 0.8s ease-out;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .section:hover {
+    transform: translateY(-8px) rotateX(0) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    clip-path: polygon(0 5%, 100% 0, 95% 100%, 0 100%);
+  }
+
+  .section h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section h2::before {
+    content: attr(data-icon);
+    font-size: 1.8rem;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 5px var(--gold));
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+  }
+
+  .section p,
+  .section ul {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 1rem;
+    opacity: 0.95;
+  }
+
+  .section ul {
+    padding-left: 1.5rem;
+  }
+
+  .section li {
+    position: relative;
+    margin-bottom: 0.75rem;
+    transition: var(--transition);
+  }
+
+  .section li:hover {
+    transform: translateX(5px);
+  }
+
+  .section li::marker {
+    color: var(--gold);
+    font-weight: 600;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  /* Enhanced CTA with Morph */
+  .cta {
+    display: block;
+    width: fit-content;
+    margin: 4rem auto 0;
+    padding: 1.25rem 3.5rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--gold), var(--accent));
+    color: var(--text);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 0 100%);
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .cta:hover::before { left: 100%; }
+  .cta:hover {
+    transform: translateY(-10px) scale(1.03) rotate(2deg);
+    box-shadow: 0 35px 90px rgba(212, 175, 55, 0.5);
+    clip-path: polygon(5% 0, 100% 5%, 100% 95%, 0 100%);
+  }
+
+  /* Footer with Creative Wave */
+  footer {
+    text-align: center;
+    padding: 5rem 2rem 2rem;
+    color: var(--muted);
+    background: linear-gradient(to top, transparent, var(--bg-body));
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation: wave 4s ease-in-out infinite;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+  }
+
+  footer p {
+    margin: 0;
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Media Queries */
+  @media (max-width: 1024px) {
+    .hero { background-attachment: scroll; }
+  }
+
+  @media (max-width: 768px) {
+    nav { flex-direction: column; gap: 1rem; padding: 1rem; }
+    .hero { min-height: 50vh; }
+    .section { padding: 2rem 1.5rem; margin-bottom: 2rem; clip-path: none; }
+    .section:hover { clip-path: none; }
+    .cta { padding: 1rem 2.5rem; font-size: 1.1rem; clip-path: none; }
+    .cta:hover { clip-path: none; }
+  }
+
+  @media print {
+    body { background: white; color: black; }
+    header, .cta, footer, #stars-bg, #progress, #particles { display: none; }
+    .section { box-shadow: none; border: 1px solid #ccc; clip-path: none; }
+  }
+  </style>
+</head>
+<body data-theme="light">
+
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-icon">🍲</div>
+      <p>Savoring the details...</p>
+    </div>
+  </div>
+
+  <div id="progress"></div>
+  <div id="stars-bg"></div>
+  <div id="particles"></div>
+
+  <header class="sticky">
+    <nav>
+      <div class="brand"><span><img src="https://i.postimg.cc/CMttfwC3/fmb.png" height="50"></span></div>
+      <div class="nav-links">
+        <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Terms & Conditions</h1>
+      <p>Our promise of transparency, quality, and delight in every delivery.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <main class="main-content">
+      <section id="service-overview" class="section" data-section="1" data-icon="🍲">
+        <h2>1. Service Overview</h2>
+        <p>At Tiffin, we craft and deliver exquisite, freshly prepared meals to your door with unwavering commitment to hygiene, freshness, and punctuality. Our menu evolves with the seasons, featuring the finest ingredients sourced sustainably.</p>
+      </section>
+
+      <section id="orders-payments" class="section" data-section="2" data-icon="🛒">
+        <h2>2. Orders</h2>
+        <ul>
+          <li>Orders are exclusively placed via our secure website for seamless experience.</li>
+          <li>You should submit your order before for each day at night after 9:00 P.M for proper management.</li>
+		  <li>Submitting late may affect our count</li>
+          
+        </ul>
+      </section>
+
+      <section id="cancellations-refunds" class="section" data-section="3" data-icon="↩️">
+        <h2>3. Cancellations </h2>
+        <p>Once the order is submitted you can't change it .</p>
+		<p>Order as much you need.</p>
+		<p>No returning of food is allowed.</p>
+      </section>
+
+      <section id="delivery" class="section" data-section="4" data-icon="🚚">
+        <h2>4. Delivery</h2>
+        <p>Timely delivery is our hallmark, but unforeseen circumstances like weather or traffic may cause delays. </p>
+		<p>Please Co-orporate us ,and your patience will be helpful for the mangaement</p>
+      </section>
+
+      <section id="liability" class="section" data-section="5" data-icon="⚠️">
+        <h2>5. Liability</h2>
+        <p>While we prioritize safety, Tiffin disclaims responsibility for allergic reactions or dietary issues.</p>
+		<p><u><b>Zero wastage</b></u> is our main subject,and to deliver more efficiently with less man power.<p>
+      </section>
+
+      <section id="modifications" class="section" data-section="6" data-icon="✏️">
+        <h2>6. Modifications</h2>
+        <p>We may update these terms to reflect service enhancements. Continued use signifies acceptance. We'll notify you of major changes via app notifications—stay informed effortlessly.</p>
+      </section>
+
+      <a href="https://big-silver-hz2f1ccar8.edgeone.app/" class="cta">Explore Our Menu</a>
+    </a>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Tiffin · (FMB) Mahad-Al-Zahra · Developed by <br> 
+	<span><img src="https://i.postimg.cc/HLj8yRyp/panchgani-removebg-preview.png" height="100"></span></p>
+  </footer>
+
+  <script>
+    // Dynamic Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Loader
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1500);
+    });
+
+    // Enhanced Stars with Trails
+    const starsContainer = document.getElementById('stars-bg');
+    for (let i = 0; i < 60; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 3 + 1;
+      const left = Math.random() * 100;
+      star.style.left = left + '%';
+      star.style.width = star.style.height = size + 'px';
+      star.style.setProperty('--left-pos', left + '%');
+      star.style.background = `hsl(${30 + Math.random() * 60}, 80%, ${70 + Math.random() * 20}%)`;
+      star.style.opacity = Math.random() * 0.4 + 0.3;
+      star.style.animationDelay = `-${Math.random() * 25}s`;
+      star.style.animationDuration = (Math.random() * 20 + 25) + 's';
+      starsContainer.appendChild(star);
+
+      // Add trail
+      if (i % 3 === 0) {
+        const trail = document.createElement('div');
+        trail.className = 'star-trail';
+        trail.style.left = left + '%';
+        trail.style.animationDelay = `-${Math.random() * 25}s`;
+        trail.style.animationDuration = (Math.random() * 20 + 25) + 's';
+        starsContainer.appendChild(trail);
+      }
+    }
+
+    // Floating Particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 10 + 's';
+      particle.style.animationDuration = (Math.random() * 30 + 40) + 's';
+      particle.style.opacity = Math.random() * 0.5 + 0.2;
+      particlesContainer.appendChild(particle);
+    }
+
+    // Progress Bar
+    window.addEventListener('scroll', () => {
+      const progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('progress').style.width = progress + '%';
+    });
+
+    // Theme Toggle - Improved without reload
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', newTheme);
+      // Update stars dynamically
+      const stars = document.querySelectorAll('.star');
+      stars.forEach(star => {
+        if (newTheme === 'dark') {
+          star.style.background = '#fff';
+        } else {
+          star.style.background = `hsl(${30 + Math.random() * 60}, 80%, ${70 + Math.random() * 20}%)`;
+        }
+      });
+    });
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.setAttribute('data-theme', savedTheme);
+    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    // Initialize stars for saved theme
+    const stars = document.querySelectorAll('.star');
+    if (savedTheme === 'dark') {
+      stars.forEach(star => star.style.background = '#fff');
+    }
+
+    // Intersection Observer
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.section').forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
