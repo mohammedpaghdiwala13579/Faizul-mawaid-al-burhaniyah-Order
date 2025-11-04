@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍲</text></svg>">
   <style>
   :root {
@@ -30,7 +31,6 @@
     --font-body: 'Inter', sans-serif;
     --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-
   [data-theme="dark"] {
     --gold: #f4d03f;
     --accent: #f7dc6f;
@@ -45,7 +45,6 @@
     --shadow: 0 10px 40px rgba(0,0,0,0.3);
     --shadow-lg: 0 25px 70px rgba(0,0,0,0.4);
   }
-
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -59,42 +58,357 @@
     line-height: 1.7;
     transition: var(--transition);
   }
-
-  /* Loading Screen with Creative Spin */
+  /* Loading Screen with Creative Spin - Replaced with Tiffin Loading Adventure */
   #loader {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: var(--bg-body);
+    background: radial-gradient(circle at center, #fff8f0 0%, #f2e6d9 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
     transition: opacity 0.5s ease;
     color: var(--text);
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
   }
-
   #loader.hidden { opacity: 0; pointer-events: none; }
-  .loader-content {
-    text-align: center;
-    animation: fadeInPulse 1.5s ease-in-out;
+  .tiffin-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .loader-icon {
-    font-size: 4rem;
-    animation: wobble 2s ease-in-out infinite;
-    display: block;
-    margin-bottom: 1rem;
+  .floating-items {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
   }
-  @keyframes wobble {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    25% { transform: rotate(5deg) scale(1.05); }
-    75% { transform: rotate(-5deg) scale(1.05); }
+  .float-item {
+    position: absolute;
+    opacity: 0;
+    animation: floatUp 4s ease-out forwards;
+    font-size: 12px;
+    color: #7a6b46;
+    pointer-events: none;
   }
-  @keyframes fadeInPulse {
-    0% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 1; transform: scale(1.1); }
-    100% { opacity: 1; transform: scale(1); }
+  /* Expanded tiffin-related items */
+  .float-item.chili::before { content: "🌶️"; }
+  .float-item.spoon::before { content: "🥄"; }
+  .float-item.chapati::before { content: "🥙"; }
+  .float-item.curry::before { content: "🍛"; }
+  .float-item.spice::before { content: "🌿"; }
+  .float-item.rice::before { content: "🍚"; }
+  .float-item.veg::before { content: "🥦"; }
+  .float-item.ladle::before { content: "🥣"; }
+  .float-item.pickle::before { content: "🥒"; }
+  .float-item.bread::before { content: "🍞"; }
+  .float-item.onion::before { content: "🧅"; }
+  .float-item.tomato::before { content: "🍅"; }
+  .float-item.fork::before { content: "🍴"; }
+  .float-item.pot::before { content: "🍲"; }
+  .float-item.plate::before { content: "🍽️"; }
+  @keyframes floatUp {
+    0% {
+      opacity: 0;
+      transform: translateY(100px) rotate(0deg) scale(0.5);
+    }
+    20% {
+      opacity: 1;
+      transform: translateY(-20px) rotate(10deg) scale(1);
+    }
+    80% {
+      opacity: 1;
+      transform: translateY(-50px) rotate(-10deg) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100px) rotate(0deg) scale(0.5);
+    }
   }
-
+  .tiffin {
+    position: relative;
+    width: 100px;
+    height: 200px;
+    z-index: 5;
+  }
+  /* Each tiffin section (dabba) - Stacked compartments for meals */
+  .dabba {
+    position: absolute;
+    width: 90px;
+    height: 38px;
+    left: 5px;
+    background: linear-gradient(180deg, #fdf5e6 0%, #f8e9ce 45%, #e7cfa8 100%);
+    border: 2px solid #b8a97a;
+    border-radius: 50% / 20%;
+    box-shadow: inset 0 1px 4px rgba(255,255,255,0.8), 0 3px 6px rgba(0,0,0,0.25);
+    transform: translateY(60px) scale(0.95);
+    opacity: 0;
+    transition: all 0.7s ease-in-out;
+  }
+  .dabba.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  /* Food filling animation - Creatively represents different dishes */
+  .dabba.filled::before {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 10px;
+    width: 70px;
+    height: 12px;
+    border-radius: 6px;
+    opacity: 0.95;
+    animation: fill 0.7s ease-in-out forwards;
+  }
+  /* Unique food colors and subtle patterns for creativity */
+  .dabba:nth-child(5).filled::before {
+    background: #fdd875;
+    box-shadow: inset 0 2px 4px rgba(255, 215, 0, 0.3); /* Dal with glow */
+  }
+  .dabba:nth-child(6).filled::before {
+    background: #fff5b7;
+    background-image: linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.5) 20%, rgba(255,255,255,0.5) 40%, transparent 40%); /* Rice grains */
+  }
+  .dabba:nth-child(7).filled::before {
+    background: #d2f5a3;
+    border-radius: 50% 20% 50% 20%; /* Bhaji veggies */
+  }
+  .dabba:nth-child(8).filled::before {
+    background: #f7c89f;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Roti flatbread shape */
+  }
+  @keyframes fill {
+    from { height: 0; opacity: 0; }
+    to { height: 12px; opacity: 1; }
+  }
+  /* Subtle side rods - Now with engraved patterns for detail */
+  .rod {
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 180px;
+    background: linear-gradient(180deg, #d8c99b, #c0b07a);
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px);
+  }
+  .rod.left { left: -2px; }
+  .rod.right { right: -2px; }
+  .rod.visible { opacity: 0.6; }
+  /* Ultra-creative top locking: Enchanted key turns with magical effects */
+  .top-lock {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 25px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 10;
+  }
+  .top-lock.visible {
+    opacity: 1;
+  }
+  /* Lock body - Brass-like with intricate filigree */
+  .lock-body {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 25px;
+    background: linear-gradient(145deg, #d4c183, #b8a97a);
+    border: 2px solid #a89b6a;
+    border-radius: 15px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.3);
+  }
+  .lock-body::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 8px;
+    background: #333;
+    border-radius: 1px;
+  }
+  /* Magical rotating key - Creative spinning with trail */
+  .key {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(180deg, #ffd700, #ffed4e);
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: transform 2s ease-in-out;
+  }
+  .top-lock.locking .key {
+    transform: translate(-50%, -50%) rotate(720deg); /* Two full turns for magic */
+  }
+  .key::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: -2px;
+    right: -2px;
+    height: 8px;
+    background: #ffd700;
+    border-radius: 50% 50% 0 0;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.5);
+  }
+  .key::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 6px;
+    background: #c9a75e;
+    clip-path: polygon(0 0, 100% 0, 70% 100%);
+  }
+  /* Extending lock arms with hook ends - Like securing a treasure chest */
+  .lock-arm {
+    position: absolute;
+    top: 10px;
+    width: 25px;
+    height: 5px;
+    background: linear-gradient(90deg, #c0b07a, #d4c183);
+    border-radius: 2px;
+    opacity: 0;
+    transform: scaleX(0);
+    transition: all 1s ease-in-out;
+  }
+  .top-lock.locking .lock-arm {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  .lock-arm.left {
+    left: -35px;
+    transform-origin: right center;
+  }
+  .lock-arm.right {
+    right: -35px;
+    transform-origin: left center;
+  }
+  .lock-arm::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    width: 10px;
+    height: 7px;
+    background: #b8a97a;
+    clip-path: polygon(0 0, 100% 0, 80% 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  /* Creative handle: Bamboo-inspired foldable arc that "grows" into place */
+  .handle {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-90deg) scaleY(0);
+    width: 50px;
+    height: 30px;
+    border: 2px solid #c6b37a;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    background: linear-gradient(145deg, #f5e3a7, #d2be7a);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.8);
+    opacity: 0;
+    transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy ease */
+  }
+  .handle.visible {
+    opacity: 1;
+    transform: translateX(-50%) rotate(0deg) scaleY(1);
+  }
+  .handle::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: linear-gradient(145deg, #e8d4a0, #c9b36a);
+    border-radius: 50% 50% 0 0;
+  }
+  .handle.locked {
+    transform: translateX(-50%) rotate(0deg) scaleY(1) translateY(3px);
+    border-color: #a89b6a;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+  }
+  /* Divider lines - Now with etched design */
+  .dabba::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 6px;
+    width: 78px;
+    height: 2px;
+    background: linear-gradient(90deg, #c9b98a, #d8c999);
+    border-radius: 1px;
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 10px, #b8a97a 10px, #b8a97a 11px);
+  }
+  /* Dynamic shadow that pulses on lock */
+  .shadow {
+    position: absolute;
+    bottom: -6px;
+    left: 15px;
+    width: 70px;
+    height: 12px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.25), transparent);
+    border-radius: 50%;
+    transition: all 0.5s ease;
+  }
+  .top-lock.locking ~ .shadow {
+    transform: scale(1.05);
+    animation: pulse 0.5s ease-in-out;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+  /* Magical sparkles - Enhanced with color and trail */
+  .sparkle {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, #ffd700, #ff6b35);
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkleAnim 0.6s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes sparkleAnim {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0) rotate(0deg) translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.2) rotate(180deg) translateY(-10px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0) rotate(360deg) translateY(-20px);
+    }
+  }
   /* Enchanted Stars with Trail Effect */
   #stars-bg {
     position: fixed;
@@ -103,7 +417,6 @@
     pointer-events: none;
     z-index: 0;
   }
-
   .star {
     position: absolute;
     bottom: -10px;
@@ -113,7 +426,6 @@
     filter: drop-shadow(0 0 4px var(--gold));
     z-index: 1;
   }
-
   .star::before,
   .star::after {
     content: '';
@@ -123,16 +435,14 @@
     border-radius: inherit;
     transform: translate(-50%, -50%);
   }
-
-  .star::before { 
-    width: 50%; height: 50%; 
-    animation: twinkle 1.2s ease-in-out infinite alternate; 
+  .star::before {
+    width: 50%; height: 50%;
+    animation: twinkle 1.2s ease-in-out infinite alternate;
   }
-  .star::after { 
-    width: 25%; height: 25%; 
-    animation: twinkle 1.2s ease-in-out infinite alternate 0.6s; 
+  .star::after {
+    width: 25%; height: 25%;
+    animation: twinkle 1.2s ease-in-out infinite alternate 0.6s;
   }
-
   /* Creative Trail */
   .star-trail {
     position: absolute;
@@ -144,32 +454,26 @@
     animation: riseTrail linear infinite;
     left: var(--left-pos);
   }
-
   @keyframes rise {
     0% { opacity: 0; transform: translateY(0) scale(0.3) rotate(0deg); }
     10% { opacity: 1; transform: translateY(-5vh) scale(1) rotate(180deg); }
     90% { opacity: 1; transform: translateY(-95vh) scale(1) rotate(180deg); }
     100% { opacity: 0; transform: translateY(-100vh) scale(0.3) rotate(360deg); }
   }
-
   @keyframes riseTrail {
     to { transform: translateY(-100vh); }
   }
-
   @keyframes twinkle {
     0% { transform: translate(-50%, -50%) scale(0.7) opacity: 0.5; }
     100% { transform: translate(-50%, -50%) scale(1.8) opacity: 1; }
   }
-
   [data-theme="dark"] .star {
     filter: drop-shadow(0 0 6px var(--gold));
   }
-
   [data-theme="dark"] .star::before,
   [data-theme="dark"] .star::after {
     background: #fff;
   }
-
   /* Floating Particles for Creativity */
   #particles {
     position: fixed;
@@ -179,7 +483,6 @@
     z-index: 1;
     overflow: hidden;
   }
-
   .particle {
     position: absolute;
     width: 4px;
@@ -189,7 +492,6 @@
     opacity: 0.6;
     animation: floatParticle linear infinite;
   }
-
   @keyframes floatParticle {
     0% {
       transform: translateY(100vh) rotate(0deg);
@@ -206,7 +508,6 @@
       opacity: 0;
     }
   }
-
   /* Progress Bar with Glow */
   #progress {
     position: fixed;
@@ -217,7 +518,6 @@
     box-shadow: 0 0 15px var(--gold);
     transition: width 0.2s ease;
   }
-
   /* Header with Enhanced Glassmorphism */
   header.sticky {
     position: fixed;
@@ -229,7 +529,6 @@
     z-index: 1000;
     transition: var(--transition);
   }
-
   nav {
     display: flex;
     justify-content: space-between;
@@ -238,7 +537,6 @@
     max-width: 1200px;
     margin: 0 auto;
   }
-
   nav .brand {
     font-family: var(--font-display);
     font-size: 1.8rem;
@@ -252,12 +550,10 @@
     z-index: 1;
     transition: var(--transition);
   }
-
   nav .brand:hover {
     transform: scale(1.05);
     filter: drop-shadow(0 0 10px var(--gold));
   }
-
   nav .brand::after {
     content: '';
     position: absolute;
@@ -266,15 +562,12 @@
     background: linear-gradient(90deg, var(--gold), var(--accent));
     transition: width 0.3s ease;
   }
-
   nav .brand:hover::after { width: 100%; }
-
   nav .nav-links {
     display: flex;
     align-items: center;
     gap: 2rem;
   }
-
   nav a {
     color: var(--text);
     text-decoration: none;
@@ -283,13 +576,11 @@
     transition: var(--transition);
     opacity: 0.9;
   }
-
   nav a:hover {
     opacity: 1;
     color: var(--gold);
     transform: translateY(-2px);
   }
-
   nav a::before {
     content: '';
     position: absolute;
@@ -298,9 +589,7 @@
     background: linear-gradient(90deg, var(--gold), var(--accent));
     transition: width 0.3s ease;
   }
-
   nav a:hover::before { width: 100%; }
-
   .theme-toggle {
     background: none;
     border: 1px solid var(--muted);
@@ -312,41 +601,36 @@
     transition: var(--transition);
     opacity: 0.8;
   }
-
-  .theme-toggle:hover { 
+  .theme-toggle:hover {
     background: linear-gradient(135deg, var(--gold), var(--accent));
     color: var(--bg-body);
     border-color: var(--gold);
     opacity: 1;
     transform: rotate(180deg);
   }
-
-  /* Hero with Immersive Parallax - NEW IMAGE AP	iplied */
+  /* Hero with Immersive Parallax - NEW IMAGE AP iplied */
   .hero {
     min-height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    background: 
+    background:
       radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.25) 0%, transparent 50%),
       url('https://i.postimg.cc/Kvm2YGZx/faiz.webp') center/cover no-repeat;
     background-attachment: fixed;
     transform-style: preserve-3d;
     transition: var(--transition);
   }
-
   [data-theme="dark"] .hero {
     filter: brightness(0.9) contrast(1.1);
   }
-
   .hero-overlay {
     position: absolute;
     inset: 0;
     background: var(--hero-overlay);
     transition: var(--transition);
   }
-
   .hero-content {
     text-align: center;
     position: relative;
@@ -355,12 +639,10 @@
     padding: 0 2rem;
     animation: slideInUp 1s ease-out;
   }
-
   @keyframes slideInUp {
     from { opacity: 0; transform: translateY(50px) rotateX(10deg); }
     to { opacity: 1; transform: translateY(0) rotateX(0); }
   }
-
   .hero h1 {
     font-family: var(--font-display);
     font-size: clamp(3rem, 6vw, 5rem);
@@ -374,7 +656,6 @@
     text-shadow: 0 4px 20px rgba(0,0,0,0.1);
     position: relative;
   }
-
   .hero h1::after {
     content: '';
     position: absolute;
@@ -387,12 +668,10 @@
     border-radius: 2px;
     animation: shimmer 3s ease-in-out infinite;
   }
-
   @keyframes shimmer {
     0%, 100% { opacity: 0.5; }
     50% { opacity: 1; }
   }
-
   .hero p {
     font-size: 1.3rem;
     color: var(--text);
@@ -402,7 +681,6 @@
     position: relative;
     z-index: 3;
   }
-
   /* Main Content with Morphing Cards */
   .container {
     max-width: 1200px;
@@ -411,9 +689,7 @@
     position: relative;
     z-index: 2;
   }
-
   .main-content { width: 100%; }
-
   .section {
     background: var(--bg-section);
     backdrop-filter: blur(25px) saturate(180%);
@@ -429,7 +705,6 @@
     overflow: hidden;
     clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
   }
-
   .section::before {
     content: '';
     position: absolute;
@@ -438,24 +713,20 @@
     background: linear-gradient(90deg, var(--gold), var(--accent));
     transition: var(--transition);
   }
-
   .section:hover::before {
     box-shadow: 0 0 10px var(--gold);
   }
-
   .section.visible {
     opacity: 1;
     transform: translateY(0) rotateX(0);
     animation: slideInUp 0.8s ease-out;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
-
   .section:hover {
     transform: translateY(-8px) rotateX(0) scale(1.02);
     box-shadow: var(--shadow-lg);
     clip-path: polygon(0 5%, 100% 0, 95% 100%, 0 100%);
   }
-
   .section h2 {
     font-family: var(--font-display);
     font-size: 2rem;
@@ -471,19 +742,16 @@
     position: relative;
     z-index: 2;
   }
-
   .section h2::before {
     content: attr(data-icon);
     font-size: 1.8rem;
     animation: float 3s ease-in-out infinite;
     filter: drop-shadow(0 0 5px var(--gold));
   }
-
   @keyframes float {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-8px) rotate(5deg); }
   }
-
   .section p,
   .section ul {
     font-size: 1.1rem;
@@ -492,32 +760,26 @@
     margin-bottom: 1rem;
     opacity: 0.95;
   }
-
   .section ul {
     padding-left: 1.5rem;
   }
-
   .section li {
     position: relative;
     margin-bottom: 0.75rem;
     transition: var(--transition);
   }
-
   .section li:hover {
     transform: translateX(5px);
   }
-
   .section li::marker {
     color: var(--gold);
     font-weight: 600;
     animation: pulse 2s infinite;
   }
-
   @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.7; }
   }
-
   /* Enhanced CTA with Morph */
   .cta {
     display: block;
@@ -537,7 +799,6 @@
     transition: var(--transition);
     clip-path: polygon(0 0, 100% 0, 95% 100%, 0 100%);
   }
-
   .cta::before {
     content: '';
     position: absolute;
@@ -546,14 +807,12 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
     transition: left 0.6s ease;
   }
-
   .cta:hover::before { left: 100%; }
   .cta:hover {
     transform: translateY(-10px) scale(1.03) rotate(2deg);
     box-shadow: 0 35px 90px rgba(212, 175, 55, 0.5);
     clip-path: polygon(5% 0, 100% 5%, 100% 95%, 0 100%);
   }
-
   /* Footer with Creative Wave */
   footer {
     text-align: center;
@@ -564,7 +823,6 @@
     z-index: 2;
     overflow: hidden;
   }
-
   footer::before {
     content: '';
     position: absolute;
@@ -573,24 +831,20 @@
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
     animation: wave 4s ease-in-out infinite;
   }
-
   @keyframes wave {
     0%, 100% { transform: translateX(-100%); }
     50% { transform: translateX(100%); }
   }
-
   footer p {
     margin: 0;
     font-size: 0.95rem;
     position: relative;
     z-index: 2;
   }
-
   /* Media Queries */
   @media (max-width: 1024px) {
     .hero { background-attachment: scroll; }
   }
-
   @media (max-width: 768px) {
     nav { flex-direction: column; gap: 1rem; padding: 1rem; }
     .hero { min-height: 50vh; }
@@ -599,7 +853,6 @@
     .cta { padding: 1rem 2.5rem; font-size: 1.1rem; clip-path: none; }
     .cta:hover { clip-path: none; }
   }
-
   @media print {
     body { background: white; color: black; }
     header, .cta, footer, #stars-bg, #progress, #particles { display: none; }
@@ -608,18 +861,35 @@
   </style>
 </head>
 <body data-theme="light">
-
   <div id="loader">
-    <div class="loader-content">
-      <div class="loader-icon">🍲</div>
-      <p>Savoring the details...</p>
+    <div class="tiffin-container">
+      <div class="floating-items" id="floatingItems"></div>
+      <div class="tiffin">
+        <!-- Magical top lock with key -->
+        <div class="top-lock">
+          <div class="lock-body"></div>
+          <div class="key"></div>
+          <div class="lock-arm left"></div>
+          <div class="lock-arm right"></div>
+        </div>
+        <!-- Foldable handle -->
+        <div class="handle"></div>
+        <!-- Subtle side rods -->
+        <div class="rod left"></div>
+        <div class="rod right"></div>
+        <!-- Dabba sections: Bottom dal, rice, bhaji, top roti -->
+        <div class="dabba" style="bottom: 0;" data-label="Dal (Lentils)"></div>
+        <div class="dabba" style="bottom: 40px;" data-label="Rice"></div>
+        <div class="dabba" style="bottom: 80px;" data-label="Bhaji (Veggies)"></div>
+        <div class="dabba" style="bottom: 120px;" data-label="Roti (Bread)"></div>
+        <!-- Dynamic shadow -->
+        <div class="shadow"></div>
+      </div>
     </div>
   </div>
-
   <div id="progress"></div>
   <div id="stars-bg"></div>
   <div id="particles"></div>
-
   <header class="sticky">
     <nav>
       <div class="brand"><span><img src="https://i.postimg.cc/CMttfwC3/fmb.png" height="50"></span></div>
@@ -628,7 +898,6 @@
       </div>
     </nav>
   </header>
-
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -636,67 +905,166 @@
       <p>Our promise of transparency, quality, and delight in every delivery.</p>
     </div>
   </section>
-
   <div class="container">
     <main class="main-content">
       <section id="service-overview" class="section" data-section="1" data-icon="🍲">
         <h2>1. Service Overview</h2>
         <p>At Tiffin, we craft and deliver exquisite, freshly prepared meals to your door with unwavering commitment to hygiene, freshness, and punctuality. Our menu evolves with the seasons, featuring the finest ingredients sourced sustainably.</p>
       </section>
-
       <section id="orders-payments" class="section" data-section="2" data-icon="🛒">
         <h2>2. Orders</h2>
         <ul>
           <li>Orders are exclusively placed via our secure website for seamless experience.</li>
           <li>You should submit your order before for each day at night after 9:00 P.M for proper management.</li>
-		  <li>Submitting late may affect our count</li>
-          
+  <li>Submitting late may affect our count</li>
+         
         </ul>
       </section>
-
       <section id="cancellations-refunds" class="section" data-section="3" data-icon="↩️">
         <h2>3. Cancellations </h2>
         <p>Once the order is submitted you can't change it .</p>
-		<p>Order as much you need.</p>
-		<p>No returning of food is allowed.</p>
+<p>Order as much you need.</p>
+<p>No returning of food is allowed.</p>
       </section>
-
       <section id="delivery" class="section" data-section="4" data-icon="🚚">
         <h2>4. Delivery</h2>
         <p>Timely delivery is our hallmark, but unforeseen circumstances like weather or traffic may cause delays. </p>
-		<p>Please Co-orporate us ,and your patience will be helpful for the mangaement</p>
+<p>Please Co-orporate us ,and your patience will be helpful for the mangaement</p>
       </section>
-
       <section id="liability" class="section" data-section="5" data-icon="⚠️">
         <h2>5. Liability</h2>
         <p>While we prioritize safety, Tiffin disclaims responsibility for allergic reactions or dietary issues.</p>
-		<p><u><b>Zero wastage</b></u> is our main subject,and to deliver more efficiently with less man power.<p>
+<p><u><b>Zero wastage</b></u> is our main subject,and to deliver more efficiently with less man power.<p>
       </section>
-
       <section id="modifications" class="section" data-section="6" data-icon="✏️">
         <h2>6. Modifications</h2>
         <p>We may update these terms to reflect service enhancements. Continued use signifies acceptance. We'll notify you of major changes via app notifications—stay informed effortlessly.</p>
       </section>
-
-      <a href="https://faizul-mawaid-al-burhaniyah-tiffin.vercel.app/" class="cta">Explore Our Menu</a>
+      <a href="https://big-silver-hz2f1ccar8.edgeone.app/" class="cta">Explore Our Menu</a>
     </a>
     </main>
   </div>
-
   <footer>
-    <p>&copy; <span id="year"></span> Tiffin · (FMB) Mahad-Al-Zahra · Developed by <br> 
-	<span><img src="https://i.postimg.cc/HLj8yRyp/panchgani-removebg-preview.png" height="100"></span></p>
+    <p>&copy; <span id="year"></span> Tiffin · (FMB) Mahad-Al-Zahra · Developed by <br>
+<span><img src="https://i.postimg.cc/HLj8yRyp/panchgani-removebg-preview.png" height="100"></span></p>
   </footer>
-
   <script>
     // Dynamic Year
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Loader
+    // Loader - Adapted for new Tiffin Loading Adventure
     window.addEventListener('load', () => {
-      setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1500);
+      // Start the new loader animation immediately on load
+      const loaderScript = () => {
+        const dabbas = document.querySelectorAll('.dabba');
+        const rods = document.querySelectorAll('.rod');
+        const topLock = document.querySelector('.top-lock');
+        const handle = document.querySelector('.handle');
+        const floatingContainer = document.getElementById('floatingItems');
+        let sparkleCount = 0;
+     
+        const items = ['chili', 'spoon', 'chapati', 'curry', 'spice', 'rice', 'veg', 'ladle', 'pickle', 'bread', 'onion', 'tomato', 'fork', 'pot', 'plate'];
+     
+        // Shuffle items to ensure random order but all unique
+        function shuffleArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        }
+     
+        const shuffledItems = shuffleArray([...items]); // Copy and shuffle
+     
+        let itemIndex = 0;
+     
+        // Create floating item with unique type
+        function createFloatItem() {
+          if (itemIndex >= shuffledItems.length) {
+            itemIndex = 0; // Reset if all used, but with 15 items and short time, unlikely
+          }
+          const itemType = shuffledItems[itemIndex];
+          const item = document.createElement('div');
+          item.classList.add('float-item', itemType);
+         
+          // Random position around tiffin
+          const side = Math.random() < 0.5 ? 'left' : 'right';
+          const x = side === 'left' ? Math.random() * -50 - 20 : Math.random() * 50 + 120;
+          const y = Math.random() * 200 + 100; // Start below
+          item.style.left = `${x}px`;
+          item.style.top = `${y}px`;
+         
+          // Staggered timing for variety
+          const delay = itemIndex * 0.3; // Sequential but close
+          const duration = 3 + Math.random() * 2;
+          item.style.animationDelay = `${delay}s`;
+          item.style.animationDuration = `${duration}s`;
+         
+          floatingContainer.appendChild(item);
+          setTimeout(() => item.remove(), (duration + delay) * 1000 + 1000);
+         
+          itemIndex++;
+        }
+     
+        // Spawn unique floating items faster
+        for (let i = 0; i < shuffledItems.length; i++) {
+          setTimeout(createFloatItem, i * 300);
+        }
+     
+        // Animate dabbas
+        dabbas.forEach((dabba, i) => {
+          setTimeout(() => {
+            dabba.classList.add('visible');
+            setTimeout(() => {
+              dabba.classList.add('filled');
+            }, 400);
+          }, i * 700);
+        });
+     
+        // Show rods
+        setTimeout(() => {
+          rods.forEach(rod => rod.classList.add('visible'));
+        }, dabbas.length * 700 + 400);
+     
+        // Reveal top lock synchronized with fourth dabba (index 3)
+        const fourthDabbaIndex = 3;
+        setTimeout(() => {
+          // Show lock when fourth dabba becomes visible
+          topLock.classList.add('visible');
+          setTimeout(() => {
+            topLock.classList.add('locking');
+            // Burst of sparkles for creativity
+            const sparkleInterval = setInterval(() => {
+              if (sparkleCount < 8) createSparkle();
+              else clearInterval(sparkleInterval);
+            }, 200);
+            setTimeout(() => clearInterval(sparkleInterval), 1600);
+          }, 300);
+        }, fourthDabbaIndex * 700);
+     
+        // Create magical sparkle
+        function createSparkle() {
+          const sparkle = document.createElement('div');
+          sparkle.classList.add('sparkle');
+          topLock.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 600);
+          sparkleCount++;
+        }
+     
+        // Fold handle with bounce - after lock
+        setTimeout(() => {
+          handle.classList.add('visible');
+          setTimeout(() => {
+            handle.classList.add('locked');
+          }, 600);
+        }, fourthDabbaIndex * 700 + 2500);
+     
+        // Fade out after completion - adapted to use hidden class
+        setTimeout(() => {
+          document.getElementById('loader').classList.add('hidden');
+        }, 8000);
+      };
+      loaderScript();
     });
-
     // Enhanced Stars with Trails
     const starsContainer = document.getElementById('stars-bg');
     for (let i = 0; i < 60; i++) {
@@ -712,7 +1080,6 @@
       star.style.animationDelay = `-${Math.random() * 25}s`;
       star.style.animationDuration = (Math.random() * 20 + 25) + 's';
       starsContainer.appendChild(star);
-
       // Add trail
       if (i % 3 === 0) {
         const trail = document.createElement('div');
@@ -723,7 +1090,6 @@
         starsContainer.appendChild(trail);
       }
     }
-
     // Floating Particles
     const particlesContainer = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
@@ -735,13 +1101,11 @@
       particle.style.opacity = Math.random() * 0.5 + 0.2;
       particlesContainer.appendChild(particle);
     }
-
     // Progress Bar
     window.addEventListener('scroll', () => {
       const progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
       document.getElementById('progress').style.width = progress + '%';
     });
-
     // Theme Toggle - Improved without reload
     const themeToggle = document.querySelector('.theme-toggle');
     themeToggle.addEventListener('click', () => {
@@ -761,7 +1125,6 @@
         }
       });
     });
-
     // Load saved theme
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.body.setAttribute('data-theme', savedTheme);
@@ -771,7 +1134,6 @@
     if (savedTheme === 'dark') {
       stars.forEach(star => star.style.background = '#fff');
     }
-
     // Intersection Observer
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -783,5 +1145,4 @@
     document.querySelectorAll('.section').forEach(section => observer.observe(section));
   </script>
 </body>
-
 </html>
