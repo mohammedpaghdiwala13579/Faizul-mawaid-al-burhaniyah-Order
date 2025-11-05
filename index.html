@@ -58,7 +58,7 @@
     line-height: 1.7;
     transition: var(--transition);
   }
-  /* Loading Screen with Creative Spin - Replaced with Tiffin Loading Adventure */
+  /* Loading Screen with Hyper-Realistic Tiffin Animation - Enhanced */
   #loader {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -92,10 +92,11 @@
   .float-item {
     position: absolute;
     opacity: 0;
-    animation: floatUp 4s ease-out forwards;
+    animation: floatUp 2.5s ease-out forwards;
     font-size: 12px;
     color: #7a6b46;
     pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
   }
   /* Expanded tiffin-related items */
   .float-item.chili::before { content: "🌶️"; }
@@ -137,25 +138,31 @@
     height: 200px;
     z-index: 5;
   }
-  /* Each tiffin section (dabba) - Stacked compartments for meals */
+  /* Hyper-realistic dabba: Enhanced with metallic sheen, subtle engravings, and depth */
   .dabba {
     position: absolute;
     width: 90px;
     height: 38px;
     left: 5px;
-    background: linear-gradient(180deg, #fdf5e6 0%, #f8e9ce 45%, #e7cfa8 100%);
+    background: linear-gradient(145deg, #fdf5e6 0%, #f8e9ce 30%, #e7cfa8 70%, #d9c4a2 100%);
     border: 2px solid #b8a97a;
+    border-top: 1px solid #c8b88a;
+    border-bottom: 3px solid #a8996a;
     border-radius: 50% / 20%;
-    box-shadow: inset 0 1px 4px rgba(255,255,255,0.8), 0 3px 6px rgba(0,0,0,0.25);
+    box-shadow: 
+      inset 0 2px 6px rgba(255,255,255,0.6), 
+      inset 0 -2px 4px rgba(0,0,0,0.1),
+      0 4px 12px rgba(0,0,0,0.15),
+      0 1px 2px rgba(0,0,0,0.05) inset;
     transform: translateY(60px) scale(0.95);
     opacity: 0;
-    transition: all 0.7s ease-in-out;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy for realism */
   }
   .dabba.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-  /* Food filling animation - Creatively represents different dishes */
+  /* Hyper-realistic food filling: Liquid pour effect with ripples */
   .dabba.filled::before {
     content: "";
     position: absolute;
@@ -165,46 +172,132 @@
     height: 12px;
     border-radius: 6px;
     opacity: 0.95;
-    animation: fill 0.7s ease-in-out forwards;
+    animation: liquidFill 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
   }
-  /* Unique food colors and subtle patterns for creativity */
+  @keyframes liquidFill {
+    0% { 
+      height: 0; 
+      opacity: 0; 
+      transform: scaleX(0.8) translateY(10px);
+    }
+    50% { 
+      transform: scaleX(1.05) translateY(-2px); /* Ripple effect */
+    }
+    100% { 
+      height: 12px; 
+      opacity: 1; 
+      transform: scaleX(1);
+    }
+  }
+  /* Unique food with realistic textures */
   .dabba:nth-child(5).filled::before {
-    background: #fdd875;
-    box-shadow: inset 0 2px 4px rgba(255, 215, 0, 0.3); /* Dal with glow */
+    background: linear-gradient(180deg, #fdd875 0%, #f9c462 100%);
+    box-shadow: inset 0 2px 4px rgba(255, 215, 0, 0.3), 0 0 10px rgba(255, 215, 0, 0.2); /* Glowing dal */
   }
   .dabba:nth-child(6).filled::before {
     background: #fff5b7;
-    background-image: linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.5) 20%, rgba(255,255,255,0.5) 40%, transparent 40%); /* Rice grains */
+    background-image: 
+      repeating-linear-gradient(90deg, transparent 0px, transparent 3px, rgba(255,255,255,0.6) 3px, rgba(255,255,255,0.6) 6px),
+      radial-gradient(circle at 20% 50%, rgba(255,255,255,0.8) 1px, transparent 1px);
+    animation: grainShift 1s ease-in-out infinite alternate; /* Subtle rice grain movement */
+  }
+  @keyframes grainShift {
+    0% { background-position: 0 0, 20% 50%; }
+    100% { background-position: 6px 0, 25% 50%; }
   }
   .dabba:nth-child(7).filled::before {
-    background: #d2f5a3;
-    border-radius: 50% 20% 50% 20%; /* Bhaji veggies */
+    background: linear-gradient(135deg, #d2f5a3, #a8d98b);
+    border-radius: 50% 20% 50% 20%;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.5);
   }
   .dabba:nth-child(8).filled::before {
-    background: #f7c89f;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Roti flatbread shape */
+    background: linear-gradient(180deg, #f7c89f 0%, #e6b38a 100%);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
   }
-  @keyframes fill {
-    from { height: 0; opacity: 0; }
-    to { height: 12px; opacity: 1; }
+  /* Enhanced hyper-realistic smoke: Multi-layered wispy steam with curl and dissipation */
+  .smoke-container {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  /* Subtle side rods - Now with engraved patterns for detail */
+  .dabba.filled ~ .smoke-container {
+    opacity: 1;
+  }
+  .smoke-particle {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    height: 2px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.95) 0%, rgba(220,220,220,0.7) 40%, rgba(200,200,200,0.4) 70%, transparent 100%);
+    border-radius: 50%;
+    opacity: 0;
+    animation: smokeRiseEnhanced 2.5s ease-out infinite;
+    filter: blur(0.3px);
+    box-shadow: 0 0 3px rgba(255,255,255,0.3);
+  }
+  /* More particles for density */
+  .smoke-particle:nth-child(1) { left: 35%; width: 5px; height: 5px; animation-delay: 0s; animation-duration: 2.3s; }
+  .smoke-particle:nth-child(2) { left: 65%; width: 4px; height: 4px; animation-delay: 0.2s; animation-duration: 2.0s; }
+  .smoke-particle:nth-child(3) { left: 25%; width: 3px; height: 6px; animation-delay: 0.4s; animation-duration: 2.6s; }
+  .smoke-particle:nth-child(4) { left: 75%; width: 2px; height: 4px; animation-delay: 0.6s; animation-duration: 2.1s; }
+  .smoke-particle:nth-child(5) { left: 45%; width: 3px; height: 3px; animation-delay: 0.8s; animation-duration: 2.4s; }
+  .smoke-particle:nth-child(6) { left: 55%; width: 1.5px; height: 5px; animation-delay: 1.0s; animation-duration: 1.9s; }
+  .smoke-particle:nth-child(7) { left: 40%; width: 2.5px; height: 2.5px; animation-delay: 1.2s; animation-duration: 2.2s; }
+  .smoke-particle:nth-child(8) { left: 60%; width: 4px; height: 4px; animation-delay: 1.4s; animation-duration: 2.5s; }
+  @keyframes smokeRiseEnhanced {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, 0) scale(0.3) rotate(0deg);
+    }
+    5% {
+      opacity: 1;
+    }
+    20% {
+      transform: translate(-50% + sin(0.5turn) * 10px, -15px) scale(0.8) rotate(45deg);
+    }
+    50% {
+      opacity: 0.9;
+      transform: translate(-50% + sin(1turn) * 20px, -40px) scale(1.5) rotate(180deg);
+    }
+    80% {
+      opacity: 0.6;
+      transform: translate(-50% + sin(1.5turn) * 30px, -70px) scale(2.2) rotate(270deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50% + sin(2turn) * 40px, -100px) scale(3) rotate(360deg);
+    }
+  }
+  /* Subtle side rods: Engraved metal with reflection */
   .rod {
     position: absolute;
     top: 0;
     width: 5px;
     height: 180px;
-    background: linear-gradient(180deg, #d8c99b, #c0b07a);
+    background: linear-gradient(180deg, #d8c99b 0%, #c0b07a 50%, #a8996a 100%);
     border-radius: 3px;
     opacity: 0;
-    transition: opacity 0.8s ease;
-    box-shadow: 0 0 4px rgba(0,0,0,0.2);
-    background-image: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px);
+    transition: opacity 0.6s ease;
+    box-shadow: 
+      0 0 4px rgba(0,0,0,0.2),
+      inset 0 1px 2px rgba(255,255,255,0.3);
+    background-image: 
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px),
+      radial-gradient(ellipse at 50% 20%, rgba(255,255,255,0.2) 0%, transparent 50%);
   }
   .rod.left { left: -2px; }
   .rod.right { right: -2px; }
-  .rod.visible { opacity: 0.6; }
-  /* Ultra-creative top locking: Enchanted key turns with magical effects */
+  .rod.visible { opacity: 0.7; }
+  /* Hyper-realistic top locking: Detailed brass with turning mechanism */
   .top-lock {
     position: absolute;
     top: -20px;
@@ -213,13 +306,13 @@
     width: 60px;
     height: 25px;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
     z-index: 10;
   }
   .top-lock.visible {
     opacity: 1;
   }
-  /* Lock body - Brass-like with intricate filigree */
+  /* Lock body: Engraved brass with patina */
   .lock-body {
     position: absolute;
     top: 0;
@@ -227,10 +320,13 @@
     transform: translateX(-50%);
     width: 30px;
     height: 25px;
-    background: linear-gradient(145deg, #d4c183, #b8a97a);
+    background: linear-gradient(145deg, #d4c183 0%, #b8a97a 50%, #a8996a 100%);
     border: 2px solid #a89b6a;
     border-radius: 15px;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.3);
+    box-shadow: 
+      inset 0 2px 4px rgba(255,255,255,0.4), 
+      inset 0 -1px 2px rgba(0,0,0,0.2),
+      0 3px 6px rgba(0,0,0,0.3);
   }
   .lock-body::before {
     content: "";
@@ -240,10 +336,11 @@
     transform: translate(-50%, -50%);
     width: 6px;
     height: 8px;
-    background: #333;
+    background: linear-gradient(180deg, #555 0%, #333 100%);
     border-radius: 1px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.3);
   }
-  /* Magical rotating key - Creative spinning with trail */
+  /* Key: Polished with realistic turn */
   .key {
     position: absolute;
     top: 50%;
@@ -251,13 +348,15 @@
     transform: translate(-50%, -50%) rotate(0deg);
     width: 4px;
     height: 20px;
-    background: linear-gradient(180deg, #ffd700, #ffed4e);
+    background: linear-gradient(180deg, #ffd700 0%, #ffed4e 100%);
     border-radius: 2px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    transition: transform 2s ease-in-out;
+    box-shadow: 
+      0 1px 2px rgba(0,0,0,0.3),
+      inset 0 1px 1px rgba(255,255,255,0.5);
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .top-lock.locking .key {
-    transform: translate(-50%, -50%) rotate(720deg); /* Two full turns for magic */
+    transform: translate(-50%, -50%) rotate(540deg); /* 1.5 turns for realism */
   }
   .key::before {
     content: "";
@@ -266,9 +365,11 @@
     left: -2px;
     right: -2px;
     height: 8px;
-    background: #ffd700;
+    background: linear-gradient(145deg, #ffd700 0%, #e6c200 100%);
     border-radius: 50% 50% 0 0;
-    box-shadow: inset 0 1px 2px rgba(255,255,255,0.5);
+    box-shadow: 
+      inset 0 1px 2px rgba(255,255,255,0.5),
+      0 1px 2px rgba(0,0,0,0.2);
   }
   .key::after {
     content: "";
@@ -278,20 +379,22 @@
     transform: translateX(-50%);
     width: 8px;
     height: 6px;
-    background: #c9a75e;
+    background: linear-gradient(90deg, #c9a75e 0%, #b89a5a 100%);
     clip-path: polygon(0 0, 100% 0, 70% 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   }
-  /* Extending lock arms with hook ends - Like securing a treasure chest */
+  /* Lock arms: Extend with metallic clink simulation */
   .lock-arm {
     position: absolute;
     top: 10px;
     width: 25px;
     height: 5px;
-    background: linear-gradient(90deg, #c0b07a, #d4c183);
+    background: linear-gradient(90deg, #c0b07a 0%, #d4c183 100%);
     border-radius: 2px;
     opacity: 0;
     transform: scaleX(0);
-    transition: all 1s ease-in-out;
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   }
   .top-lock.locking .lock-arm {
     opacity: 1;
@@ -311,11 +414,11 @@
     bottom: -3px;
     width: 10px;
     height: 7px;
-    background: #b8a97a;
+    background: linear-gradient(180deg, #b8a97a 0%, #a8996a 100%);
     clip-path: polygon(0 0, 100% 0, 80% 100%);
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   }
-  /* Creative handle: Bamboo-inspired foldable arc that "grows" into place */
+  /* Handle: Bamboo/wood with realistic bend */
   .handle {
     position: absolute;
     top: -40px;
@@ -326,10 +429,13 @@
     border: 2px solid #c6b37a;
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
-    background: linear-gradient(145deg, #f5e3a7, #d2be7a);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.8);
+    background: linear-gradient(145deg, #f5e3a7 0%, #d2be7a 100%);
+    box-shadow: 
+      0 2px 4px rgba(0,0,0,0.3), 
+      inset 0 1px 2px rgba(255,255,255,0.8),
+      inset -2px 0 4px rgba(0,0,0,0.1);
     opacity: 0;
-    transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy ease */
+    transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
   .handle.visible {
     opacity: 1;
@@ -342,15 +448,16 @@
     left: 2px;
     right: 2px;
     bottom: 2px;
-    background: linear-gradient(145deg, #e8d4a0, #c9b36a);
+    background: linear-gradient(145deg, #e8d4a0 0%, #c9b36a 100%);
     border-radius: 50% 50% 0 0;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.4);
   }
   .handle.locked {
     transform: translateX(-50%) rotate(0deg) scaleY(1) translateY(3px);
     border-color: #a89b6a;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.3);
   }
-  /* Divider lines - Now with etched design */
+  /* Divider: Etched metal line */
   .dabba::after {
     content: "";
     position: absolute;
@@ -358,30 +465,32 @@
     left: 6px;
     width: 78px;
     height: 2px;
-    background: linear-gradient(90deg, #c9b98a, #d8c999);
+    background: linear-gradient(90deg, #c9b98a 0%, #d8c999 100%);
     border-radius: 1px;
     background-image: repeating-linear-gradient(90deg, transparent, transparent 10px, #b8a97a 10px, #b8a97a 11px);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
   }
-  /* Dynamic shadow that pulses on lock */
+  /* Dynamic shadow: Realistic ground contact */
   .shadow {
     position: absolute;
     bottom: -6px;
     left: 15px;
     width: 70px;
     height: 12px;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0.25), transparent);
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 50%, transparent 100%);
     border-radius: 50%;
-    transition: all 0.5s ease;
+    transition: all 0.4s ease;
+    filter: blur(2px);
   }
   .top-lock.locking ~ .shadow {
     transform: scale(1.05);
-    animation: pulse 0.5s ease-in-out;
+    animation: pulse 0.4s ease-in-out;
   }
   @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
   }
-  /* Magical sparkles - Enhanced with color and trail */
+  /* Magical sparkles: Refined for realism */
   .sparkle {
     position: absolute;
     top: -25px;
@@ -389,11 +498,12 @@
     transform: translateX(-50%);
     width: 6px;
     height: 6px;
-    background: radial-gradient(circle, #ffd700, #ff6b35);
+    background: radial-gradient(circle, #ffd700 0%, #ff6b35 100%);
     border-radius: 50%;
     opacity: 0;
-    animation: sparkleAnim 0.6s ease-out forwards;
+    animation: sparkleAnim 0.5s ease-out forwards;
     pointer-events: none;
+    box-shadow: 0 0 4px rgba(255,215,0,0.6);
   }
   @keyframes sparkleAnim {
     0% {
@@ -878,10 +988,54 @@
         <div class="rod left"></div>
         <div class="rod right"></div>
         <!-- Dabba sections: Bottom dal, rice, bhaji, top roti -->
-        <div class="dabba" style="bottom: 0;" data-label="Dal (Lentils)"></div>
-        <div class="dabba" style="bottom: 40px;" data-label="Rice"></div>
-        <div class="dabba" style="bottom: 80px;" data-label="Bhaji (Veggies)"></div>
-        <div class="dabba" style="bottom: 120px;" data-label="Roti (Bread)"></div>
+        <div class="dabba" style="bottom: 0;" data-label="Dal (Lentils)">
+          <div class="smoke-container">
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+          </div>
+        </div>
+        <div class="dabba" style="bottom: 40px;" data-label="Rice">
+          <div class="smoke-container">
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+          </div>
+        </div>
+        <div class="dabba" style="bottom: 80px;" data-label="Bhaji (Veggies)">
+          <div class="smoke-container">
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+          </div>
+        </div>
+        <div class="dabba" style="bottom: 120px;" data-label="Roti (Bread)">
+          <div class="smoke-container">
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+            <div class="smoke-particle"></div>
+          </div>
+        </div>
         <!-- Dynamic shadow -->
         <div class="shadow"></div>
       </div>
@@ -929,19 +1083,18 @@
       <section id="delivery" class="section" data-section="4" data-icon="🚚">
         <h2>4. Delivery</h2>
         <p>Timely delivery is our hallmark, but unforeseen circumstances like weather or traffic may cause delays. </p>
-<p>Please Co-orporate us ,and your patience will be helpful for the mangaement</p>
+<p>Please cooperate with us, and your patience will be helpful for the management</p>
       </section>
       <section id="liability" class="section" data-section="5" data-icon="⚠️">
         <h2>5. Liability</h2>
         <p>While we prioritize safety, Tiffin disclaims responsibility for allergic reactions or dietary issues.</p>
-<p><u><b>Zero wastage</b></u> is our main subject,and to deliver more efficiently with less man power.<p>
+<p><u><b>Zero wastage</b></u> is our main subject, and to deliver more efficiently with less man power.</p>
       </section>
       <section id="modifications" class="section" data-section="6" data-icon="✏️">
         <h2>6. Modifications</h2>
         <p>We may update these terms to reflect service enhancements. Continued use signifies acceptance. We'll notify you of major changes via app notifications—stay informed effortlessly.</p>
       </section>
       <a href="https://big-silver-hz2f1ccar8.edgeone.app/" class="cta">Explore Our Menu</a>
-    </a>
     </main>
   </div>
   <footer>
@@ -951,9 +1104,8 @@
   <script>
     // Dynamic Year
     document.getElementById('year').textContent = new Date().getFullYear();
-    // Loader - Adapted for new Tiffin Loading Adventure
+    // Loader - Hyper-Realistic Tiffin with Enhanced Smoke, Compressed to 4s
     window.addEventListener('load', () => {
-      // Start the new loader animation immediately on load
       const loaderScript = () => {
         const dabbas = document.querySelectorAll('.dabba');
         const rods = document.querySelectorAll('.rod');
@@ -993,37 +1145,53 @@
           item.style.left = `${x}px`;
           item.style.top = `${y}px`;
          
-          // Staggered timing for variety
-          const delay = itemIndex * 0.3; // Sequential but close
-          const duration = 3 + Math.random() * 2;
+          // Staggered timing for variety - faster for 4s
+          const delay = itemIndex * 0.12; // Even closer intervals
+          const duration = 1.8 + Math.random() * 0.8; // Shorter
           item.style.animationDelay = `${delay}s`;
           item.style.animationDuration = `${duration}s`;
          
           floatingContainer.appendChild(item);
-          setTimeout(() => item.remove(), (duration + delay) * 1000 + 1000);
+          setTimeout(() => item.remove(), (duration + delay) * 1000 + 300);
          
           itemIndex++;
         }
      
         // Spawn unique floating items faster
         for (let i = 0; i < shuffledItems.length; i++) {
-          setTimeout(createFloatItem, i * 300);
+          setTimeout(createFloatItem, i * 120); // 120ms intervals, total ~1.8s
         }
      
-        // Animate dabbas
+        // Animate dabbas - tighter intervals
         dabbas.forEach((dabba, i) => {
           setTimeout(() => {
             dabba.classList.add('visible');
             setTimeout(() => {
               dabba.classList.add('filled');
-            }, 400);
-          }, i * 700);
+              // Smoke starts immediately on fill with initial puff
+              const smokeContainer = dabba.querySelector('.smoke-container');
+              if (smokeContainer) {
+                smokeContainer.style.opacity = '1';
+                // Add initial burst
+                for (let j = 0; j < 3; j++) {
+                  setTimeout(() => {
+                    const burst = document.createElement('div');
+                    burst.className = 'smoke-particle';
+                    burst.style.animationDelay = '0s';
+                    burst.style.animationDuration = '1s';
+                    smokeContainer.appendChild(burst);
+                    setTimeout(() => burst.remove(), 1000);
+                  }, j * 100);
+                }
+              }
+            }, 150); // Faster fill
+          }, i * 350); // 350ms intervals: total ~1400ms for dabbas
         });
      
-        // Show rods
+        // Show rods - sooner
         setTimeout(() => {
           rods.forEach(rod => rod.classList.add('visible'));
-        }, dabbas.length * 700 + 400);
+        }, dabbas.length * 350 + 150); // ~1550ms
      
         // Reveal top lock synchronized with fourth dabba (index 3)
         const fourthDabbaIndex = 3;
@@ -1032,36 +1200,38 @@
           topLock.classList.add('visible');
           setTimeout(() => {
             topLock.classList.add('locking');
-            // Burst of sparkles for creativity
+            // Burst of sparkles for creativity - refined
             const sparkleInterval = setInterval(() => {
-              if (sparkleCount < 8) createSparkle();
+              if (sparkleCount < 6) createSparkle();
               else clearInterval(sparkleInterval);
-            }, 200);
-            setTimeout(() => clearInterval(sparkleInterval), 1600);
-          }, 300);
-        }, fourthDabbaIndex * 700);
+            }, 120);
+            setTimeout(() => clearInterval(sparkleInterval), 720);
+          }, 150); // Faster lock turn
+        }, fourthDabbaIndex * 350); // ~1050ms
      
         // Create magical sparkle
         function createSparkle() {
           const sparkle = document.createElement('div');
           sparkle.classList.add('sparkle');
+          // Random offset for variety
+          sparkle.style.left = (50 + (Math.random() - 0.5) * 20) + '%';
           topLock.appendChild(sparkle);
-          setTimeout(() => sparkle.remove(), 600);
+          setTimeout(() => sparkle.remove(), 500);
           sparkleCount++;
         }
      
-        // Fold handle with bounce - after lock
+        // Fold handle with bounce - after lock, compressed
         setTimeout(() => {
           handle.classList.add('visible');
           setTimeout(() => {
             handle.classList.add('locked');
-          }, 600);
-        }, fourthDabbaIndex * 700 + 2500);
+          }, 300); // Faster
+        }, fourthDabbaIndex * 350 + 900); // ~1950ms
      
-        // Fade out after completion - adapted to use hidden class
+        // Fade out after completion - at 4s
         setTimeout(() => {
           document.getElementById('loader').classList.add('hidden');
-        }, 8000);
+        }, 4000);
       };
       loaderScript();
     });
