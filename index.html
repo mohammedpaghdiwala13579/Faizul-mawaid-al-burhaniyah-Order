@@ -700,24 +700,6 @@
     transition: width 0.3s ease;
   }
   nav a:hover::before { width: 100%; }
-  .theme-toggle {
-    background: none;
-    border: 1px solid var(--muted);
-    color: var(--text);
-    padding: 0.5rem;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: var(--transition);
-    opacity: 0.8;
-  }
-  .theme-toggle:hover {
-    background: linear-gradient(135deg, var(--gold), var(--accent));
-    color: var(--bg-body);
-    border-color: var(--gold);
-    opacity: 1;
-    transform: rotate(180deg);
-  }
   /* Hero with Immersive Parallax - NEW IMAGE AP iplied */
   .hero {
     min-height: 60vh;
@@ -970,7 +952,7 @@
   }
   </style>
 </head>
-<body data-theme="light">
+<body data-theme="dark">
   <div id="loader">
     <div class="tiffin-container">
       <div class="floating-items" id="floatingItems"></div>
@@ -1048,7 +1030,7 @@
     <nav>
       <div class="brand"><span><img src="https://i.postimg.cc/CMttfwC3/fmb.png" height="50"></span></div>
       <div class="nav-links">
-        <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <!-- theme toggle removed to force permanent dark mode -->
       </div>
     </nav>
   </header>
@@ -1105,6 +1087,7 @@
   <script>
     // Dynamic Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
     // Loader - Hyper-Realistic Tiffin with Enhanced Smoke, Compressed to 4s
     window.addEventListener('load', () => {
       const loaderScript = () => {
@@ -1261,6 +1244,12 @@
         starsContainer.appendChild(trail);
       }
     }
+
+    // Force dark theme (permanent) and make stars white for dark mode
+    document.body.setAttribute('data-theme', 'dark');
+    const stars = document.querySelectorAll('.star');
+    stars.forEach(star => star.style.background = '#fff');
+
     // Floating Particles
     const particlesContainer = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
@@ -1277,34 +1266,7 @@
       const progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
       document.getElementById('progress').style.width = progress + '%';
     });
-    // Theme Toggle - Improved without reload
-    const themeToggle = document.querySelector('.theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      const body = document.body;
-      const currentTheme = body.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      body.setAttribute('data-theme', newTheme);
-      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-      localStorage.setItem('theme', newTheme);
-      // Update stars dynamically
-      const stars = document.querySelectorAll('.star');
-      stars.forEach(star => {
-        if (newTheme === 'dark') {
-          star.style.background = '#fff';
-        } else {
-          star.style.background = `hsl(${30 + Math.random() * 60}, 80%, ${70 + Math.random() * 20}%)`;
-        }
-      });
-    });
-    // Load saved theme
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.body.setAttribute('data-theme', savedTheme);
-    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-    // Initialize stars for saved theme
-    const stars = document.querySelectorAll('.star');
-    if (savedTheme === 'dark') {
-      stars.forEach(star => star.style.background = '#fff');
-    }
+
     // Intersection Observer
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -1318,5 +1280,3 @@
 </body>
 
 </html>
-
-
